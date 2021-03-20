@@ -15,8 +15,21 @@ class UserList(generics.ListCreateAPIView):
     
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
+    def get_last_login(self):
+        user = User.objects.filter(username=self.kwargs.get('username'))
+        return user.last_login
 
-class UserDetail(generics.RetrieveUpdateAPIView):
+
+class UserDetail(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(User,  pk=self.kwargs.get('user_id'))
+
+
+
+class UserUpdate(generics.UpdateAPIView):
     serializer_class = UserSerializer
 
     def get_object(self, **kwargs):
@@ -41,6 +54,7 @@ class UserProfileList(generics.ListAPIView):
     
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+    
 
 class UserProfileDetail(generics.RetrieveUpdateAPIView):
     
@@ -49,6 +63,8 @@ class UserProfileDetail(generics.RetrieveUpdateAPIView):
 
     def get_object(self, **kwargs):
         return get_object_or_404(UserProfile,  pk=self.kwargs.get('user_id'))
+
+
 
 
 

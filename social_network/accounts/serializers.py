@@ -9,7 +9,7 @@ from .models import UserProfile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'last_login']
 
 class UserNestedSerializer(serializers.ModelSerializer):
     class Meta:
