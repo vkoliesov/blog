@@ -1,14 +1,12 @@
-import django_filters
+from django_filters import rest_framework as filters
 
-from .models import Post
+from .models import PostLike
 
-class LikeItemFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(name='post__title')
-    likes = django_filters.CharFilter(name='post__total_likes')
-    start_date = django_filters.DateFilter(name='date',lookup_type=('lt'),) 
-    end_date = django_filters.DateFilter(name='date',lookup_type=('gt'))
-    date = django_filters.DateRangeFilter()
+
+class DateRangeFilterSet(filters.FilterSet):
+    date_from = filters.DateFilter(field_name='date', lookup_expr='gte')
+    date_to = filters.DateFilter(field_name='date', lookup_expr='lte')
 
     class Meta:
-        model = Post
-        fields = ['title', 'likes_date_from', 'likes_date_to']
+        model = PostLike
+        fields = ('date_from', 'date_to')

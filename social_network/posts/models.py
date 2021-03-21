@@ -16,5 +16,13 @@ class Post(models.Model):
         return self.title
 
 class PostLike(models.Model):
-    likes_user = models.ManyToManyField('auth.User', blank=True, related_name='post_likes')
+    LIKE = (
+        ('like', 'like'),
+        ('dislike', 'dislike')
+    )
+
+    likes_user = models.ForeignKey('auth.User', blank=True, related_name='post_likes', on_delete=models.CASCADE, default=None)
     likes_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    like = models.CharField(max_length=255, choices=LIKE, default=0)
+    date = models.DateField(auto_now=True)
+

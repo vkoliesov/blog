@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.PostList.as_view(), name='list_posts'),
     path('<int:post_id>/', views.PostDetail.as_view(), name='post_detail'),
     path('<int:post_id>/like/',views.LikeListCreate.as_view(),name = 'post_likes'),
+    path('analytics/', views.AnalyticView.as_view(), name='like_analytic'),
 
 
 ]
